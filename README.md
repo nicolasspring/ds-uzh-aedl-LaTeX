@@ -7,7 +7,18 @@ This LaTeX template has been created from and adapts the [template for BA and MA
 
 ## Getting Started
 
-To get started with this template, download the code as a ZIP file from the GitHub repository. From there, you have two options:
+To get started with this template, download the code as a ZIP file from the GitHub repository.
 
-- **Using Overleaf**: Upload the ZIP file directly to Overleaf and begin editing your document in the browser.
-- **Working locally**: Extract the ZIP file and work locally using the editor and TeX distribution of choice.
+**Using Overleaf**: Upload the ZIP file directly to Overleaf and begin editing your document in the browser.
+
+**Working locally**: Extract the ZIP file and work locally using the editor and TeX distribution of choice. This template uses `biblatex` with the `biber` backend for bibliography management.
+
+The compilation sequence is:
+```bash
+pdflatex thesis.tex  # First pass: creates citation markers
+biber thesis         # Processes bibliography from thesis.bib
+pdflatex thesis.tex  # Second pass: incorporates bibliography
+pdflatex thesis.tex  # Third pass: finalizes references and page numbers
+```
+
+Most modern LaTeX editors (VS Code with LaTeX Workshop, TeXShop, etc.) handle this automatically. If you see `[?]` for citations, ensure biber is run as part of your build process.
