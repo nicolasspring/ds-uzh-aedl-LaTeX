@@ -1,0 +1,133 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% In this file you can configure the bibliography for your paper
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography and References (ÄDL Style)
+% Using biblatex with verbose-ibid style for footnote citations
+\usepackage[backend=biber,
+  style=verbose-ibid,
+  autocite=footnote,
+  ibidtracker=constrict,
+  pagetracker=page,
+  citetracker=true,
+  sorting=nyt,
+  sortlocale=de\_DE,
+  maxbibnames=3,
+  minbibnames=1,
+  maxcitenames=3,
+  mincitenames=1,
+  dashed=false,
+  labeldate=year,
+  labeldateparts=true,
+  block=ragged,
+]{biblatex}
+\usepackage{csquotes}
+
+% ÄDL-specific German strings
+\DefineBibliographyStrings{ngerman}{
+  editor = {Hg\adddot},
+  editors = {Hgg\adddot},
+  byeditor = {Hg\adddot\addspace von},
+  andothers = {u\adddot\addabbrvspace a\adddot},
+  ibidem = {Ebd\adddot},
+  in = {In},
+  pages = {S\adddot},
+  page = {S\adddot},
+  column = {Sp\adddot},
+  columns = {Sp\adddot},
+  volume = {Bd\adddot},
+  volumes = {Bde\adddot},
+  edition = {Auflage},
+}
+
+% Override title formatting: use roman instead of italic for titles and subtitles
+\DeclareFieldFormat[article,inbook,incollection,inproceedings,patent,thesis,unpublished]{title}{#1\isdot}
+\DeclareFieldFormat[book,collection,proceedings,reference,mvbook,mvcollection,mvproceedings,mvreference]{title}{#1\isdot}
+\DeclareFieldFormat{subtitle}{#1\isdot}
+\DeclareFieldFormat{titleaddon}{#1\isdot}
+\DeclareFieldFormat[online,misc]{title}{#1\isdot}
+\DeclareFieldFormat{booktitle}{#1\isdot}
+\DeclareFieldFormat{maintitle}{#1\isdot}
+\DeclareFieldFormat{journaltitle}{#1\isdot}
+
+% Use slash as name delimiter for multiple authors (ÄDL style)
+\renewcommand*{\multinamedelim}{\addslash}
+\renewcommand*{\finalnamedelim}{\addslash}
+
+% Format: Nachname, Vorname / Vorname Nachname
+\DeclareNameAlias{sortname}{family-given}
+
+% Add extradate (a, b, c) suffix to year in bibliography for disambiguation
+\DeclareFieldFormat{date}{#1\printfield{extradate}}
+\DeclareFieldFormat{year}{#1\printfield{extradate}}
+
+% Add the bibliography resource
+\addbibresource{biblio/thesis.bib}
+
+% Categories for separating Primärtexte, Forschungsliteratur, Wörterbücher, and Andere
+\DeclareBibliographyCategory{primary}
+\DeclareBibliographyCategory{secondary}
+\DeclareBibliographyCategory{dictionary}
+\DeclareBibliographyCategory{other}
+% Automatically add entries with keywords to appropriate categories
+\AtEveryBibitem{%
+  \ifkeyword{primary}{\addtocategory{primary}{\thefield{entrykey}}}{}%
+  \ifkeyword{secondary}{\addtocategory{secondary}{\thefield{entrykey}}}{}%
+  \ifkeyword{dictionary}{\addtocategory{dictionary}{\thefield{entrykey}}}{}%
+  \ifkeyword{other}{\addtocategory{other}{\thefield{entrykey}}}{}%
+}%
+\AtEveryCitekey{%
+  \ifkeyword{primary}{\addtocategory{primary}{\thefield{entrykey}}}{}%
+  \ifkeyword{secondary}{\addtocategory{secondary}{\thefield{entrykey}}}{}%
+  \ifkeyword{dictionary}{\addtocategory{dictionary}{\thefield{entrykey}}}{}%
+  \ifkeyword{other}{\addtocategory{other}{\thefield{entrykey}}}{}%
+}%
+
+% Override cite:short to use "Nachname Jahr" format (no parentheses) with hyperlinks
+\renewbibmacro*{cite:short}{%
+  \bibhyperref{%
+    \printnames{labelname}%
+    \setunit*{\addspace}%
+    \printfield{year}%
+  }%
+}
+
+% Override cite:ibid to add proper hyperlinks to bibliography
+\renewbibmacro*{cite:ibid}{%
+  \bibhyperref{%
+    \bibstring[\mkibid]{ibidem}%
+  }%
+}
+
+% Override cite:shorthand to add proper hyperlinks to bibliography
+\renewbibmacro*{cite:shorthand}{%
+  \bibhyperref{\printfield{shorthand}}%
+}
+
+% Custom cite command for ÄDL style
+% Use \cite for inline citations, wrap in \footnote{} manually when needed
+\DeclareCiteCommand{\cite}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{aedl:cite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
+
+% ÄDL citation macro: handles category-based citation logic
+\newbibmacro*{aedl:cite}{%
+  \iffieldundef{shorthand}
+    {\ifciteseen
+       {\ifthenelse{\ifciteibid\AND\NOT\iffirstonpage}
+          {\usebibmacro{cite:ibid}}
+          {\usebibmacro{cite:short}}}
+       {\ifcategory{primary}
+          {\usebibmacro{cite:full}}
+          {\usebibmacro{cite:short}}}}
+    {\usebibmacro{cite:shorthand}}%
+}
+
+% Define a bibliography command that only shows up when compiling a subfile
+\providecommand{\subfilebibliography}{
+\ifSubfilesClassLoaded{
+  \printbibliography}{}
+}

@@ -1,0 +1,143 @@
+% We are using KOMA-Script class. See http://mirrors.ctan.org/macros/latex/contrib/koma-script/doc/scrguide-en.pdf
+\documentclass[a4paper,12pt,
+listof=totoc,% add list of figures
+bibliography=totoc% add bibliography to Table of Contents
+]
+{scrreprt}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Loading preamble
+
+% packages
+\input{preamble/packages}
+% config for styling
+\input{preamble/styling}
+% custom commands
+\input{preamble/commands}
+% bibliography config
+\input{preamble/bibliography}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START OF DOCUMENT: Every chapter can be compiled separately
+% See folder `chapters` for the individual chapters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Paragraph formatting for Front Matter
+\parskip=0cm
+\parindent=0cm
+\pagenumbering{roman}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title page: Adapt to your thesis type and language
+\subfile{chapters/00_titelseite}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstract
+
+\subfile{chapters/01_abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Acknowledgements
+\subfile{chapters/02_danksagung}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Table of Contents
+
+\phantomsection
+  \addcontentsline{toc}{chapter}{Inhaltsverzeichnis}
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Glossary
+
+\subfile{chapters/03_glossar}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% List of Figures
+
+\listoffigures
+\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% List of Tables
+
+\listoftables
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Setup of Main Matter
+\clearpage
+% page numbering arabic, start with 1
+\pagenumbering{arabic}
+
+% Paragraph formatting
+\setlength{\parskip}{0.3cm}
+\setlength{\parindent}{0cm}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main Matter: Each chapter as a separate file
+% Add/remove your chapter files as need be
+
+\subfile{chapters/10_einleitung}
+
+\subfile{chapters/20_schreiben}
+
+\subfile{chapters/30_zitieren}
+
+\subfile{chapters/90_fazit}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography: For main document
+\newpage
+\phantomsection%
+\addcontentsline{toc}{chapter}{Bibliographie}%
+\chapter*{Bibliographie}
+
+% !!This setup follows the config in preamble/bibliography.tex!!
+% Adjust categories there if needed
+
+% Primärtexte (Primary Sources)
+\printbibheading[heading=subbibliography,title={Primärtexte}]
+\printbibliography[category=primary,heading=none]
+
+% Sekundärliteratur und Theorietexte (Secondary Literature)
+\printbibheading[heading=subbibliography,title={Sekundärliteratur und Theorietexte}]
+\printbibliography[category=secondary,heading=none]
+
+% Wörterbücher und Lexika (Dictionaries and Lexica)
+\printbibheading[heading=subbibliography,title={Wörterbücher und Lexika}]
+\printbibliography[category=dictionary,heading=none]
+
+% Bildquellen und weitere Ressourcen (Images and other resources)
+\printbibheading[heading=subbibliography,title={Bildquellen und weitere Ressourcen}]
+\printbibliography[category=images,heading=none]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appendix for additional material
+\appendix
+
+% Header for the appendix
+\ihead{Appendix~\headmark}
+% Sample chapter with tables etc.
+\subfile{appendix/tabellen}
+
+\clearpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Declaration of independent authorship
+
+\includepdf[pages=-]{appendix/Selbständigkeitserklärung_DS_Feb2025.pdf}
+
+\end{document}

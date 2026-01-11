@@ -1,0 +1,49 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% In this file you can define custom packages you want to use in your paper and configure them
+
+
+% Enable one folder for images that are used in the main document and in the separate subfiles for the
+% chapters that can be compiled separately
+\usepackage[pdftex]{graphicx}
+\graphicspath{{images/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PDF settings
+\usepackage[hyperfootnotes=false]{hyperref}
+\hypersetup{%
+  pdfauthor={Vorname(n) Name},
+  pdftitle={Kurztitel der Arbeit},
+}
+
+
+% Helpful for komascript: Needs to come after hypersetup
+\usepackage{bookmark}
+% Needed for the \includepdf command for the declaration of independent authorship
+\usepackage{pdfpages}
+
+%% Add your packages here
+% no figures below footnotes
+\usepackage[bottom]{footmisc}
+% nicer tables
+\usepackage{tabularx}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Managing multilingual content (hyphenation etc.)
+% ngerman: Neue Rechtschreibung; english: American English
+\usepackage[ngerman]{babel}
+\selectlanguage{ngerman}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Nicer table layout with \toprule, \midrule, \bottomrule
+\usepackage{booktabs} 
+% for long tables spanning multiple pages consider using the longtable package
+% \usepackage{longtable}
+
+
+\usepackage{makeidx} 
+
+
+% See help for multi-file tex projects
+% https://www.overleaf.com/learn/latex/Multi-file_LaTeX_projects
+\usepackage{subfiles} % Best loaded last in the preamble

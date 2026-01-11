@@ -1,0 +1,90 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% In this file you can configure styling like fonts, font sizes etc.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PDF settings
+% \usepackage[hyperfootnotes=false]{hyperref} --> loaded in packages.tex
+\hypersetup{%
+  citebordercolor=[rgb]{0.33,0.66,0.4},
+  linkbordercolor=[rgb]{0.8,0.73,0.45},
+  urlbordercolor=[rgb]{0.77,0.31,0.32},
+  pdfborder={0 0 0.1}, % Adjust the third value as needed for border thickness (0 removes borders)
+}
+% Use the same font for URLs as surrounding text
+\urlstyle{same}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fonts 
+
+% If you need better Unicode support, use the libertine font
+%\usepackage[sfdefault]{libertine}
+\usepackage[scaled]{helvet}
+\usepackage{inconsolata}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definition of the page layout
+\setlength{\topmargin}{-1.2cm}
+\setlength{\oddsidemargin}{0.5cm} 
+\setlength{\evensidemargin}{0.5cm}
+
+\setlength{\textheight}{24.5cm} 
+\setlength{\textwidth}{15cm}
+
+\usepackage{setspace} % Line spacing
+\onehalfspacing  %\doublespace or \singlespace
+
+
+\setlength{\footskip}{1.2cm} 
+\setlength{\footnotesep}{0.4cm}
+
+
+% Adjust footnotes
+\deffootnote[1em]{1em}{1em}{\textsuperscript{\thefootnotemark\ }}
+% Syntax: \deffootnote[mark width]{indent}{parindent}{definition}
+% mark width: space for the footnote marker
+% indent: indentation of the first line of footnotes
+% parindent: indentation of the following lines in the footnote
+% definition: how the footnote mark is formatted
+
+% Set single spacing for footnotes (requirement: 1.0 line spacing)
+\renewcommand{\footnotelayout}{\setstretch{1.0}}
+
+% Ensure that footnotes are numbered continuously throughout the document
+\counterwithout{footnote}{chapter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Heading font sizes (requirement: chapter 15pt, section 14pt, subsection 13pt)
+\setkomafont{chapter}{\fontsize{15}{18}\selectfont\bfseries}
+\setkomafont{section}{\fontsize{14}{16.8}\selectfont\bfseries}
+\setkomafont{subsection}{\fontsize{13}{15.6}\selectfont\bfseries}
+\setkomafont{subsubsection}{\fontsize{13}{15.6}\selectfont\bfseries}
+
+% Adjust chapter spacing (reduce whitespace before and after chapter title)
+\renewcommand*{\chapterheadstartvskip}{\vspace*{1\baselineskip}}
+\renewcommand*{\chapterheadendvskip}{\vspace{0.5\baselineskip}}
+
+% Caption font size (requirement: 10pt)
+\setkomafont{caption}{\fontsize{10}{12}\selectfont}
+\setkomafont{captionlabel}{\fontsize{10}{12}\selectfont\bfseries}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Header and Footer specification 
+\usepackage[automark,headsepline]{scrlayer-scrpage}
+\clearpairofpagestyles% Reset defaults
+\cfoot[\pagemark]{\pagemark}
+\ihead{\chaptername~\headmark}
+\pagestyle{scrheadings}
+% Set the header to footnote-size font and avoid italic
+\setkomafont{pagehead}{\footnotesize\normalfont}
+% If you also want to adjust the footer font size
+\setkomafont{pagefoot}{\footnotesize\normalfont}
+
+
+% Limit the depth of the table of contents
+\setcounter{secnumdepth}{3}
+% Include only up to subsubsections in the Table of Contents
+\setcounter{tocdepth}{3}
+
+

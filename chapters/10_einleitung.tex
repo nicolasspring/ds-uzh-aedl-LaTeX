@@ -1,0 +1,22 @@
+% ADD THIS HEADER TO ALL NEW CHAPTER FILES FOR SUBFILES SUPPORT
+
+% Allow independent compilation of this section for efficiency
+\documentclass[../seminararbeit.tex]{subfiles}
+
+% Add the graphics path for subfiles support
+\graphicspath{{\subfix{../images/}}}
+
+% END OF SUBFILES HEADER
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START OF DOCUMENT: Every chapter can be compiled separately
+\begin{document}
+
+\chapter{Einleitung}%
+\label{chap:intro}
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada.
+
+% self-defined macro: include bibliography even when compiling a single chapter
+\subfilebibliography
+\end{document}
