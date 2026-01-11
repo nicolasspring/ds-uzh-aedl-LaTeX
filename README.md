@@ -3,6 +3,8 @@ This is a personal (non-official) LaTeX template that can serve as your starting
 
 It is configured to follow the [rules and guidelines of the Ältere deutsche Literaturwissenschaft](https://www.ds.uzh.ch/de/studium/master/info_masterstudium/merkblaetter.html) as close as possible.
 
+This LaTeX template has been created from and adapts the [template for BA and MA theses](https://www.cl.uzh.ch/en/studies/studies-BA-MA/wegleitung.html) at the Institute of Computational Linguistics of the UZH.
+
 ## Getting Started
 
 To get started with this template, download the code as a ZIP file from the GitHub repository. From there, you have two options:
